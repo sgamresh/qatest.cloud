@@ -1,5 +1,7 @@
 package test.web.base;
 
+import java.lang.reflect.Method;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
@@ -15,6 +17,8 @@ import org.testng.*;
 public class BaseTest {
 	protected WebDriver driver = null;
 	protected ExtentTest test;
+//	protected ExtentTest maintest;
+
 	protected ExtentReports extent;
 	protected ExtentTest node;
 
@@ -23,16 +27,17 @@ public class BaseTest {
 		extent = new ExtentReports();
 		ExtentSparkReporter spark = new ExtentSparkReporter("target/Spark.html");
 		extent.attachReporter(spark);
-
 	}
-
+	
 	@BeforeMethod()
-	public void launchApp() {
+	public void launchApp(Method testmethod) {
+//		String TestName = ctx.getCurrentXmlTest().getName();
+//		System.out.println(TestName);
+//		node = test.createNode(testmethod.getName());
+		test = extent.createTest(testmethod.getName());
+
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
-		test = extent.createTest("Test");
-		node = test.createNode("Node");
-
 	}
 
 	@AfterMethod
