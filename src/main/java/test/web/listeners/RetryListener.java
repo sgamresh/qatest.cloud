@@ -5,7 +5,7 @@ import org.testng.ITestResult;
 
 public class RetryListener implements IRetryAnalyzer {
 
-	int retryLimit = 1;
+	int retryLimit = 0;
 	int counter = 0;
 	
 	
@@ -14,8 +14,6 @@ public class RetryListener implements IRetryAnalyzer {
 		if(counter < retryLimit) {
 			counter++;
 			return true;
-			
-			
 		}
 		
 		
